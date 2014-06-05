@@ -12,9 +12,9 @@ def checkDir(directory):
 outputdirname = "setopatioutput"
 setopatiurl = "http://setopati.com/bichar/"
 
+# make sure the output directory exist
 checkDir(outputdirname)
 
-# make sure the output directory exist
 # iterate through the news artices.
 for i in range(2000, 12000):
     filename = os.path.join(outputdirname, str(i))
@@ -40,7 +40,7 @@ for i in range(2000, 12000):
         if len(newsbox) > 1:
             # if there is news inside the news box, then it's length will be > 1
             # remove the content inside span, h1, h2 etc
-            for htmltag in ['strong', 'h1', 'h2']:
+            for htmltag in ['strong', 'h1','span', 'h2']:
                 for tag in newsbox.find_all(htmltag):
                     tag.decompose()
             content = bytes(newsbox.get_text(), 'UTF-8')
