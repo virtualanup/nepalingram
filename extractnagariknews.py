@@ -23,12 +23,12 @@ for i in range(1343, 20000):
     # this will prevent us from redoing much task if the script gets broken in the
     # middle of extraction.
     if os.path.exists(filename):
-        print("Skipping ", i)
+        print(i,"th file already exists. Skipping it...")
         continue
     #this is a line and the main purpose of the file is to consider th
     # try to get the HTML content of the URL
     articleurl = nagariknewsurl + str(i)
-    print("Extracting content from ", i)
+    print("Extracting content from new id ", i)
     r = http.request('GET', articleurl)
 
     # create a file
@@ -39,8 +39,10 @@ for i in range(1343, 20000):
         # the content inside division with ID 'newsbox' is the main content
         introtext = extractor.find("div", {"class": "itemIntroText"})
         fulltext = extractor.find("div", {"class": "itemFullText"})
-        content = bytes(introtext.get_text(), 'UTF-8')
-        content += bytes(fulltext.get_text(), 'UTF-8')
+        content = ''
+        if introtext is not None and fulltext is not None:
+            content = bytes(introtext.get_text(), 'UTF-8')
+            content += bytes(fulltext.get_text(), 'UTF-8')
         outputfile.write(bytes(' ', 'UTF-8').join(content.split(bytes('\n', 'UTF-8'))))
 
     outputfile.close()
