@@ -36,7 +36,7 @@ for i in range(1343, 20000):
     if r.status == 200:
         try:
             # success. Now try to extract the news portition using beautifulsoup
-         extractor = BeautifulSoup(r.data)
+            extractor = BeautifulSoup(r.data)
             # the content inside division with ID 'newsbox' is the main content
             introtext = extractor.find("div", {"class": "itemIntroText"})
             fulltext = extractor.find("div", {"class": "itemFullText"})
