@@ -34,15 +34,18 @@ for i in range(1343, 20000):
     # create a file
     outputfile = open(filename, 'wb')
     if r.status == 200:
-        # success. Now try to extract the news portition using beautifulsoup
-        extractor = BeautifulSoup(r.data)
-        # the content inside division with ID 'newsbox' is the main content
-        introtext = extractor.find("div", {"class": "itemIntroText"})
-        fulltext = extractor.find("div", {"class": "itemFullText"})
-        content = ''
-        if introtext is not None and fulltext is not None:
-            content = bytes(introtext.get_text(), 'UTF-8')
-            content += bytes(fulltext.get_text(), 'UTF-8')
-        outputfile.write(bytes(' ', 'UTF-8').join(content.split(bytes('\n', 'UTF-8'))))
+        try:
+            # success. Now try to extract the news portition using beautifulsoup
+         extractor = BeautifulSoup(r.data)
+            # the content inside division with ID 'newsbox' is the main content
+            introtext = extractor.find("div", {"class": "itemIntroText"})
+            fulltext = extractor.find("div", {"class": "itemFullText"})
+            content = ''
+            if introtext is not None and fulltext is not None:
+                content = bytes(introtext.get_text(), 'UTF-8')
+                content += bytes(fulltext.get_text(), 'UTF-8')
+            outputfile.write(bytes(' ', 'UTF-8').join(content.split(bytes('\n', 'UTF-8'))))
+        except:
+            pass # do nothing in case of exception. Just skip that URL
 
     outputfile.close()
