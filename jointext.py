@@ -20,6 +20,7 @@ def makesinglefile(directory,filename):
             #open the file and read the contents
             content = open(fullpath).read()
             outputfile.write(content)
+            outputfile.write('\n')
 
-makesinglefile('nagariknewsoutput','nagarikoutput')
+makesinglefile('nagariknewsoutput','nagariksingle')
 makesinglefile('setopatioutput','setopatisingle')
