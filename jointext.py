@@ -19,6 +19,7 @@ def makesinglefile(directory,filename):
             print("Processing ",fullpath)
             #open the file and read the contents
             content = open(fullpath).read()
+            content = ' '.join(content.split())
             outputfile.write(content)
             outputfile.write('\n')
 
