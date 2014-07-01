@@ -1,9 +1,11 @@
+#!/usr/bin/python3
 # makengram.py
 # script to make ngram models from the raw text
 # by Anup pokhrel
 # http://virtualanup.com
 
 from collections import defaultdict
+import sys
 
 class ngrammodel:
     def __init__(self,n):
@@ -26,7 +28,7 @@ class ngrammodel:
         # endsymbols represent the symbols used to end sentences
         endsymbols = ['?','!','.',';','\n']
         for symbol in endsymbols:
-            article.replace(symbol,'।') #replace with end of sentence symbol
+            artice = article.replace(symbol,'।') #replace with end of sentence symbol
         sentences = article.split('।')
         for sentence in sentences:
             # sentence must be of enough length
@@ -37,13 +39,12 @@ class ngrammodel:
         '''
         process the sentence. It splits the sentence into words and analyze the word list
         '''
-        endsymbols = ['-',',','\'','"','\t']
+        endsymbols = ['-',',','\'','"','\t','(',')','<','>','‘','’','“','”','–']
         for symbol in endsymbols:
-            sentence.replace(symbol,' ')
+            sentence = sentence.replace(symbol,' ')
         if self.n > 1:
-            # record the start and end of sentences by a chinese letter (to make
-            # sure it won't exist in text data
-            words = ['西']+sentence.split(' ')+['西']
+            # record the start and end of sentences by #
+            words = ['#']+sentence.split(' ')+['#']
         else:
             words = sentence.split(' ')
 
@@ -51,7 +52,7 @@ class ngrammodel:
         for word in words:
             # to meet the requirements of being a word, some of the predefined characters
             # must appear in it
-            validletters=['क','ख',u'ग',u'घ',u'ङ',u'च',u'छ',u'ज',u'झ',u'ञ',u'ट',u'ठ',u'ड',u'ढ',u'ण',u'त',u'थ',u'द',u'ध',u'न',u'प',u'फ',u'ब',u'भ',u'म',u'य',u'र',u'ल',u'व',u'श',u'ष',u'स',u'ह',u'अ',u'आ',u'इ',u'ई',u'उ',u'ऊ',u'ए',u'ऐ',u'ओ',u'औ',u'अ',u'अ',u'०',u'१',u'२',u'३',u'४',u'५',u'६',u'७',u'८',u'९','西']
+            validletters=['क','ख','ग','घ','ङ','च','छ','ज','झ','ञ','ट','ठ','ड','ढ','ण','त','थ','द','ध','न','प','फ','ब','भ','म','य','र','ल','व','श','ष','स','ह','अ','आ','इ','ई','उ','ऊ','ए','ऐ','ओ','औ','अ','अ','०','१','२','३','४','५','६','७','८','९','#']
             
             for letter in validletters:
                 if letter in word:
@@ -75,3 +76,19 @@ class ngrammodel:
         '''
         for wordseq in sorted(self.words, key=self.words.get, reverse=True):
             file.write(wordseq+' '+str(self.words[wordseq])+"\n")
+
+if __name__ == '__main__':
+    # get the model number from command line
+    # like ./makengram.py 2 <outputfilename> for bigram model
+    if len(sys.argv) != 3:
+        print("Syntax : "+argv[0]+" <model_number> <output_file>",len(sys.argv))
+        exit()
+    mn = int(sys.argv[1])
+    if mn<1 or mn> 3:
+        print("Model number not supported")
+        exit()
+    model = ngrammodel(mn)
+    #model.readfile(open('test'))
+    model.readfile(open('setopatisingle'))
+    model.readfile(open('nagariksingle'))
+    model.saveoutput(open(sys.argv[2],'w+'))
