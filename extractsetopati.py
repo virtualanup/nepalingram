@@ -1,3 +1,8 @@
+#!/usr/bin/python3
+# program to extract content from Setopati
+# for Nepali ngram model
+# http://virtualanup.com/nepali-ngram-models/
+
 import urllib3
 from bs4 import BeautifulSoup
 import os

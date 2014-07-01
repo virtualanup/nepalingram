@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+# program to extract content from nagarik news
+# for Nepali ngram model
+# http://virtualanup.com/nepali-ngram-models/
+
 from bs4 import BeautifulSoup
 import urllib3
 import os

@@ -1,7 +1,7 @@
 # test.py
 # test the ngram model creator
 # by anup pokhrel
-# http://virtualanup.com
+# http://virtualanup.com/nepali-ngram-models/
 
 from makengram import ngrammodel
 import re

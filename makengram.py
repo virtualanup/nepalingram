@@ -2,7 +2,7 @@
 # makengram.py
 # script to make ngram models from the raw text
 # by Anup pokhrel
-# http://virtualanup.com
+# http://virtualanup.com/nepali-ngram-models/
 
 from collections import defaultdict
 import sys

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # program to join the contents of a directory into a single file
 # for Nepali ngram model
-# http://virtualanup.com
+# http://virtualanup.com/nepali-ngram-models/
 
 
 import os, os.path
