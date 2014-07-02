@@ -81,10 +81,10 @@ if __name__ == '__main__':
     # get the model number from command line
     # like ./makengram.py 2 <outputfilename> for bigram model
     if len(sys.argv) != 3:
-        print("Syntax : "+argv[0]+" <model_number> <output_file>",len(sys.argv))
+        print("Syntax : "+sys.argv[0]+" <model_number> <output_file>",len(sys.argv))
         exit()
     mn = int(sys.argv[1])
-    if mn<1 or mn> 3:
+    if mn<1 or mn> 5:
         print("Model number not supported")
         exit()
     model = ngrammodel(mn)
