@@ -26,10 +26,10 @@ class ngrammodel:
         # some symbols. We will then process the sentence
 
         # endsymbols represent the symbols used to end sentences
-        endsymbols = ['?','!','.',';','\n']
+        endsymbols = ['?','!','।', ';',  '\n', '\r', '\r\n']
         for symbol in endsymbols:
-            artice = article.replace(symbol,'।') #replace with end of sentence symbol
-        sentences = article.split('।')
+            article = article.replace(symbol,'.') #replace with end of sentence symbol
+        sentences = article.split('.')
         for sentence in sentences:
             # sentence must be of enough length
             if len(sentence) > 10:
@@ -53,7 +53,7 @@ class ngrammodel:
             # to meet the requirements of being a word, some of the predefined characters
             # must appear in it
             validletters=['क','ख','ग','घ','ङ','च','छ','ज','झ','ञ','ट','ठ','ड','ढ','ण','त','थ','द','ध','न','प','फ','ब','भ','म','य','र','ल','व','श','ष','स','ह','अ','आ','इ','ई','उ','ऊ','ए','ऐ','ओ','औ','अ','अ','०','१','२','३','४','५','६','७','८','९','#']
-            
+
             for letter in validletters:
                 if letter in word:
                     wordlist.append(word)
@@ -61,7 +61,7 @@ class ngrammodel:
                         self.words[' '.join(wordlist)] += 1
                         wordlist = wordlist[1:]
                     break # break to next word
-        
+
     def readfile(self,file):
         '''
         reads the content of the file and saves in the ngram
@@ -80,8 +80,8 @@ class ngrammodel:
 if __name__ == '__main__':
     # get the model number from command line
     # like ./makengram.py 2 <outputfilename> for bigram model
-    if len(sys.argv) != 3:
-        print("Syntax : "+sys.argv[0]+" <model_number> <output_file>",len(sys.argv))
+    if len(sys.argv) != 4:
+        print("Syntax : "+sys.argv[0]+"<model_number> <input_file> <output_file>",len(sys.argv))
         exit()
     mn = int(sys.argv[1])
     if mn<1 or mn> 5:
@@ -89,6 +89,5 @@ if __name__ == '__main__':
         exit()
     model = ngrammodel(mn)
     #model.readfile(open('test'))
-    model.readfile(open('setopatisingle'))
-    model.readfile(open('nagariksingle'))
-    model.saveoutput(open(sys.argv[2],'w+'))
+    model.readfile(open(sys.argv[2]))
+    model.saveoutput(open(sys.argv[3],'w+'))
